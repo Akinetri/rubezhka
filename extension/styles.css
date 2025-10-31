@@ -1,0 +1,67 @@
+/* Визуальные индикаторы для карточек */
+.test-tracker-correct {
+  border: 3px solid #4CAF50 !important;
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.5) !important;
+}
+
+.test-tracker-incorrect {
+  border: 3px solid #f44336 !important;
+  box-shadow: 0 0 10px rgba(244, 67, 54, 0.5) !important;
+}
+
+/* Уровни уверенности */
+.confidence-high {
+  background-color: rgba(76, 175, 80, 0.15) !important;
+}
+
+.confidence-medium {
+  background-color: rgba(76, 175, 80, 0.08) !important;
+}
+
+.confidence-low {
+  background-color: rgba(76, 175, 80, 0.03) !important;
+}
+
+/* Скрытие индикаторов */
+.test-tracker-hidden {
+  border: none !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+}
+
+/* Уведомления */
+.test-tracker-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 15px 25px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10000;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+  opacity: 0;
+  transform: translateX(400px);
+  transition: all 0.3s ease;
+}
+
+.test-tracker-notification.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.notification-success {
+  border-left: 4px solid #4CAF50;
+  color: #1b5e20;
+}
+
+.notification-warning {
+  border-left: 4px solid #ff9800;
+  color: #e65100;
+}
+
+.notification-info {
+  border-left: 4px solid #2196F3;
+  color: #0d47a1;
+}
