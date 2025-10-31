@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Answer Tracker</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      width: 320px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      padding: 20px;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .header h1 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    
+    .header p {
+      font-size: 12px;
+      opacity: 0.9;
+    }
+    
+    .stats {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(10px);
+    }
+    
+    .stat-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .stat-item:last-child {
+      border-bottom: none;
+    }
+    
+    .stat-label {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+    
+    .stat-value {
+      font-size: 18px;
+      font-weight: 600;
+    }
+    
+    .stat-value.correct {
+      color: #4ade80;
+    }
+    
+    .stat-value.incorrect {
+      color: #f87171;
+    }
+    
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    button {
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      backdrop-filter: blur(10px);
+    }
+    
+    button:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    
+    button:active {
+      transform: translateY(0);
+    }
+    
+    button.danger {
+      background: rgba(239, 68, 68, 0.3);
+    }
+    
+    button.danger:hover {
+      background: rgba(239, 68, 68, 0.5);
+    }
+    
+    .last-update {
+      text-align: center;
+      font-size: 11px;
+      margin-top: 15px;
+      opacity: 0.7;
+    }
+    
+    input[type="file"] {
+      display: none;
+    }
+    
+    .notification {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-100px);
+      background: rgba(34, 197, 94, 0.95);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s;
+      z-index: 1000;
+    }
+    
+    .notification.show {
+      transform: translateX(-50%) translateY(0);
+    }
+    
+    .notification.error {
+      background: rgba(239, 68, 68, 0.95);
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>📊 Test Tracker</h1>
+    <p>SW-University</p>
+  </div>
+  
+  <div class="stats">
+    <div class="stat-item">
+      <span class="stat-label">Всего карточек:</span>
+      <span class="stat-value" id="totalCards">0</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Правильных:</span>
+      <span class="stat-value correct" id="correctCount">0</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Неправильных:</span>
+      <span class="stat-value incorrect" id="incorrectCount">0</span>
+    </div>
+  </div>
+  
+  <div class="buttons">
+    <button id="exportBtn">💾 Экспортировать данные</button>
+    <button id="importBtn">📥 Импортировать данные</button>
+    <button id="clearBtn" class="danger">🗑️ Очистить данные</button>
+  </div>
+  
+  <div class="last-update" id="lastUpdate">
+    Последнее обновление: никогда
+  </div>
+  
+  <input type="file" id="fileInput" accept=".json">
+  
+  <script src="popup.js"></script>
+</body>
+</html>
