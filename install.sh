@@ -1,17 +1,51 @@
-#!/bin/bash
+'#!/bin/bash
 
-# Clone the repository
-git clone https://github.com/Akinetri/rubezhka.git
-cd rubezhka
+# Check for Git
+if ! command -v git &> /dev/null
+then
+    echo "Git could not be found. Please install Git to proceed."
+    exit 1
+fi
 
-# Create icons using ImageMagick
-convert -size 128x128 xc:white icon.png
-convert -size 64x64 xc:white icon-64.png
-convert -size 32x32 xc:white icon-32.png
+# Check for ImageMagick
+if ! command -v magick &> /dev/null
+then
+    echo "ImageMagick could not be found. Please install ImageMagick to proceed."
+    exit 1
+fi
 
-# Setup instructions
+# Clone or update the repository
+REPO_URL="https://github.com/Akinetri/rubezhka.git"
+TARGET_DIR="rubezhka"
 
-echo "Setup Instructions:"
-echo "1. Navigate to the rubezhka directory."
-echo "2. Run the application using the command: ./run.sh"
-echo "3. Follow the on-screen instructions to complete the setup."
+if [ -d "$TARGET_DIR" ]; then
+    echo "Updating the repository..."
+    cd "$TARGET_DIR" || exit
+    git pull origin main
+else
+    echo "Cloning the repository..."
+    git clone "$REPO_URL"
+    cd "$TARGET_DIR" || exit
+fi
+
+# Create icon
+echo "Creating icon..."
+magick convert icon.png -resize 128x128 icon@128.png
+
+# Copy to clipboard (Linux specific, requires xclip)
+if command -v xclip &> /dev/null
+then
+    echo "Copying installation instructions to clipboard..."
+    echo "To install the Chrome extension, follow these steps:" | xclip -selection clipboard
+    echo "1. Open Chrome and navigate to chrome://extensions/"
+    echo "2. Enable 'Developer mode'."
+    echo "3. Click 'Load unpacked' and select the directory of the cloned repository."
+else
+    echo "xclip not found. Please copy the following instructions manually:"
+    echo "To install the Chrome extension, follow these steps:"
+    echo "1. Open Chrome and navigate to chrome://extensions/"
+    echo "2. Enable 'Developer mode'."
+    echo "3. Click 'Load unpacked' and select the directory of the cloned repository."
+fi
+
+echo "Installation script completed."
